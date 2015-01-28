@@ -284,8 +284,12 @@ public class RegGUI extends javax.swing.JFrame {
                 BufferedReader lasfil = new BufferedReader(new FileReader(filnamn));
 
                 String[] datapost;
-                lasfil.readLine();
+                String[] rubriker;
+                
                 String line = lasfil.readLine();
+                rubriker = line.split(",");
+                
+                line = lasfil.readLine();
                 
                 ArrayList<AbstractItem> info = new ArrayList<>();
                 
@@ -305,15 +309,21 @@ public class RegGUI extends javax.swing.JFrame {
                 Collections.sort(info);
                 
                 for(AbstractItem abItem : info){
-                    txaUtskrift.append("Namn: " + abItem.getNamn() + "\n" + 
-                            "Genre: " + abItem.getGenre() + "\n" + 
-                            "Utgivningsår: " + abItem.getÅr() + "\n" +
-                            "Typ: " + abItem.getTyp() + "\n\n");
+                    txaUtskrift.append(
+                            rubriker[0] + ": " + abItem.getNamn() + "\n" + 
+                            rubriker[1] + ": " + abItem.getGenre() + "\n" + 
+                            rubriker[2] + ": " + abItem.getÅr() + "\n" +
+                            rubriker[3] + ": " + abItem.getTyp() + "\n\n");
                 }
                 lasfil.close();
             }
+            
+            catch(FileNotFoundException e){
+                System.out.println("Filen kunde inte hittas. Vänligen kontrollera att filen existerar.");
+            }
+            
             catch(IOException e){
-                System.out.println("Något gick fel...");
+                System.out.println("Error");
             }
         }
     }//GEN-LAST:event_btnLäsActionPerformed
