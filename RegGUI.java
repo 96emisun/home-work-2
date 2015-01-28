@@ -1,3 +1,17 @@
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,12 +23,15 @@
  * @author 96emisun
  */
 public class RegGUI extends javax.swing.JFrame {
-
+    
+    private String filnamn;
+    
     /**
      * Creates new form RegGUI
      */
     public RegGUI() {
         initComponents();
+        filnamn = null;
     }
 
     /**
@@ -26,171 +43,153 @@ public class RegGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuBar3 = new javax.swing.JMenuBar();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuBar4 = new javax.swing.JMenuBar();
-        jMenu7 = new javax.swing.JMenu();
-        jMenu8 = new javax.swing.JMenu();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jPopupMenu2 = new javax.swing.JPopupMenu();
-        jFrame1 = new javax.swing.JFrame();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        jButton2 = new javax.swing.JButton();
+        btnGroup = new javax.swing.ButtonGroup();
         jTabbedPane3 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        pnlTab1 = new javax.swing.JPanel();
+        rbtnFilm = new javax.swing.JRadioButton();
+        rbtnMusik = new javax.swing.JRadioButton();
+        rbtnSpel = new javax.swing.JRadioButton();
+        lblNamn = new javax.swing.JLabel();
+        lblGenre = new javax.swing.JLabel();
+        lblÅr = new javax.swing.JLabel();
+        txfNamn = new javax.swing.JTextField();
+        txfGenre = new javax.swing.JTextField();
+        txfÅr = new javax.swing.JTextField();
+        btnLäggTill = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        txaUtskrift = new javax.swing.JTextArea();
+        btnVäljFil = new javax.swing.JButton();
+        btnLäs = new javax.swing.JButton();
+        pnlTab2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
-        jMenu3.setText("File");
-        jMenuBar2.add(jMenu3);
-
-        jMenu4.setText("Edit");
-        jMenuBar2.add(jMenu4);
-
-        jMenu5.setText("File");
-        jMenuBar3.add(jMenu5);
-
-        jMenu6.setText("Edit");
-        jMenuBar3.add(jMenu6);
-
-        jMenu7.setText("File");
-        jMenuBar4.add(jMenu7);
-
-        jMenu8.setText("Edit");
-        jMenuBar4.add(jMenu8);
-
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        jMenuItem1.setText("jMenuItem1");
-
-        jButton2.setText("jButton2");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register_Emil_Sundqvist");
 
-        buttonGroup2.add(jRadioButton1);
-        jRadioButton1.setText("Film");
+        btnGroup.add(rbtnFilm);
+        rbtnFilm.setText("Film");
 
-        buttonGroup2.add(jRadioButton2);
-        jRadioButton2.setText("Musik");
+        btnGroup.add(rbtnMusik);
+        rbtnMusik.setText("Musik");
 
-        buttonGroup2.add(jRadioButton3);
-        jRadioButton3.setText("Spel");
+        btnGroup.add(rbtnSpel);
+        rbtnSpel.setText("Spel");
 
-        jLabel1.setText("Namn:");
+        lblNamn.setText("Namn:");
 
-        jLabel2.setText("Genre:");
+        lblGenre.setText("Genre:");
 
-        jLabel3.setText("År:");
+        lblÅr.setText("År:");
 
-        jButton1.setText("Lägg Till");
+        btnLäggTill.setText("Lägg Till");
+        btnLäggTill.setMaximumSize(new java.awt.Dimension(85, 23));
+        btnLäggTill.setMinimumSize(new java.awt.Dimension(85, 23));
+        btnLäggTill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLäggTillActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txaUtskrift.setColumns(20);
+        txaUtskrift.setRows(5);
+        jScrollPane1.setViewportView(txaUtskrift);
 
-        jButton3.setText("Välj Fil");
+        btnVäljFil.setText("Välj Fil");
+        btnVäljFil.setMaximumSize(new java.awt.Dimension(85, 23));
+        btnVäljFil.setMinimumSize(new java.awt.Dimension(85, 23));
+        btnVäljFil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVäljFilActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        btnLäs.setText("Läs Innehåll");
+        btnLäs.setMaximumSize(new java.awt.Dimension(85, 23));
+        btnLäs.setMinimumSize(new java.awt.Dimension(85, 23));
+        btnLäs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLäsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlTab1Layout = new javax.swing.GroupLayout(pnlTab1);
+        pnlTab1.setLayout(pnlTab1Layout);
+        pnlTab1Layout.setHorizontalGroup(
+            pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTab1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButton2)
-                                .addComponent(jRadioButton3)
-                                .addComponent(jRadioButton1))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                .addComponent(jTextField2)
-                                .addComponent(jTextField3))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
+                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(pnlTab1Layout.createSequentialGroup()
+                        .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTab1Layout.createSequentialGroup()
+                                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rbtnMusik)
+                                    .addComponent(rbtnSpel)
+                                    .addComponent(rbtnFilm))
+                                .addGap(16, 16, 16)
+                                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblÅr)
+                                    .addComponent(lblNamn)
+                                    .addComponent(lblGenre))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txfNamn, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                    .addComponent(txfGenre)
+                                    .addComponent(txfÅr)))
+                            .addGroup(pnlTab1Layout.createSequentialGroup()
+                                .addComponent(btnVäljFil, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLäggTill, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnLäs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlTab1Layout.setVerticalGroup(
+            pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTab1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnFilm)
+                    .addComponent(lblNamn)
+                    .addComponent(txfNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnMusik)
+                    .addComponent(lblGenre)
+                    .addComponent(txfGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnSpel)
+                    .addComponent(lblÅr)
+                    .addComponent(txfÅr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
+                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLäggTill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVäljFil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLäs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane3.addTab("tab1", jPanel1);
+        jTabbedPane3.addTab("tab1", pnlTab1);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlTab2Layout = new javax.swing.GroupLayout(pnlTab2);
+        pnlTab2.setLayout(pnlTab2Layout);
+        pnlTab2Layout.setHorizontalGroup(
+            pnlTab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 295, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+        pnlTab2Layout.setVerticalGroup(
+            pnlTab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
-        jTabbedPane3.addTab("tab2", jPanel2);
+        jTabbedPane3.addTab("tab2", pnlTab2);
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -208,13 +207,116 @@ public class RegGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVäljFilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVäljFilActionPerformed
+        JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
+        fc.showDialog(null, "Välj Fil");
+        
+        try{
+            filnamn = fc.getSelectedFile().getName();
+            System.out.println("Filen " + filnamn + " är nu vald");
+        }
+        catch(NullPointerException e){}
+    }//GEN-LAST:event_btnVäljFilActionPerformed
+
+    private void btnLäggTillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLäggTillActionPerformed
+        if(filnamn == null){
+            System.out.println("Du måste välja en fil att skriva till");
+        }
+        else{
+            try{
+                BufferedReader lasfil = new BufferedReader(new FileReader(filnamn));
+            } 
+            catch (FileNotFoundException ex) {
+                System.out.println("Filen hittades inte, skapar fil...");
+                try {
+                    PrintWriter skrivfil = new PrintWriter(new BufferedWriter(new FileWriter(filnamn, true)));
+                    skrivfil.println("Namn,Genre,Utgivningsår,Typ");
+                    System.out.println("Filen har skapats");
+                    skrivfil.close();
+                } catch (IOException ex1) {
+                    System.out.println("Någonting gick fel");
+                }
+            }
+            
+            try{
+                String valdTyp = null;
+                if(rbtnFilm.isSelected()){
+                    valdTyp = "Film";
+                }
+                else if(rbtnMusik.isSelected()){
+                    valdTyp = "Musik";
+                }
+                else if(rbtnSpel.isSelected()){
+                    valdTyp = "Spel";
+                }
+                
+                AbstractItem item = new AbstractItem(txfNamn.getText(), txfGenre.getText(), txfÅr.getText(), valdTyp);
+
+                PrintWriter skrivfil = new PrintWriter(new BufferedWriter(new FileWriter(filnamn, true)));
+
+                System.out.println("Skriver till fil...");
+                skrivfil.println(item.toString());
+                skrivfil.close();
+                System.out.println("Sparningen lyckades");
+
+                txfNamn.setText("");
+                txfGenre.setText("");
+                txfÅr.setText("");
+            }
+            catch(IOException e){
+                System.out.println("Error");
+            }
+        }
+    }//GEN-LAST:event_btnLäggTillActionPerformed
+
+    private void btnLäsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLäsActionPerformed
+        if(filnamn == null){
+            System.out.println("Du måste välja en fil att läsa från!");
+        }
+        else{
+            try{
+                BufferedReader lasfil = new BufferedReader(new FileReader(filnamn));
+
+                String[] datapost;
+                lasfil.readLine();
+                String line = lasfil.readLine();
+                
+                ArrayList<AbstractItem> info = new ArrayList<>();
+                
+                while(line != null){
+                    
+                    datapost = line.split(",");
+                    
+                    AbstractItem item = new AbstractItem(datapost[0], datapost[1], datapost[2], datapost[3]);
+                    info.add(item);
+                    
+                    line = lasfil.readLine();
+                    
+                }
+                
+                txaUtskrift.setText("");
+                
+                Collections.sort(info);
+                
+                for(AbstractItem abItem : info){
+                    txaUtskrift.append("Namn: " + abItem.getNamn() + "\n" + 
+                            "Genre: " + abItem.getGenre() + "\n" + 
+                            "Utgivningsår: " + abItem.getÅr() + "\n" +
+                            "Typ: " + abItem.getTyp() + "\n\n");
+                }
+                lasfil.close();
+            }
+            catch(IOException e){
+                System.out.println("Något gick fel...");
+            }
+        }
+    }//GEN-LAST:event_btnLäsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,39 +354,26 @@ public class RegGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JFrame jFrame1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.ButtonGroup btnGroup;
+    private javax.swing.JButton btnLäggTill;
+    private javax.swing.JButton btnLäs;
+    private javax.swing.JButton btnVäljFil;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuBar jMenuBar3;
-    private javax.swing.JMenuBar jMenuBar4;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JPopupMenu jPopupMenu2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel lblGenre;
+    private javax.swing.JLabel lblNamn;
+    private javax.swing.JLabel lblÅr;
+    private javax.swing.JPanel pnlTab1;
+    private javax.swing.JPanel pnlTab2;
+    private javax.swing.JRadioButton rbtnFilm;
+    private javax.swing.JRadioButton rbtnMusik;
+    private javax.swing.JRadioButton rbtnSpel;
+    private javax.swing.JTextArea txaUtskrift;
+    private javax.swing.JTextField txfGenre;
+    private javax.swing.JTextField txfNamn;
+    private javax.swing.JTextField txfÅr;
     // End of variables declaration//GEN-END:variables
 }
