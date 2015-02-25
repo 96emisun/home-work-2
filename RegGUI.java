@@ -230,7 +230,6 @@ public class RegGUI extends javax.swing.JFrame {
             
             lib.checkFileExistence(filnamn);
             
-            String valdTyp = null;
             if(rbtnFilm.isSelected()){
                 item = new Film(txfNamn.getText(), txfGenre.getText(), txfÅr.getText());
             }
@@ -240,8 +239,8 @@ public class RegGUI extends javax.swing.JFrame {
             else if(rbtnSpel.isSelected()){
                 item = new Spel(txfNamn.getText(), txfGenre.getText(), txfÅr.getText());
             }
-            
-            lib.writeToFile(filnamn, item);
+
+            lib.writeToCSV(filnamn, item);
 
             txfNamn.setText("");
             txfGenre.setText("");
@@ -251,55 +250,23 @@ public class RegGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLäggTillActionPerformed
 
     private void btnLäsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLäsActionPerformed
-        if(filnamn == null){
-            System.out.println("Du måste välja en fil att läsa från!");
+        txaUtskrift.setText("");
+        
+        ArrayList<AbstractItem> info = lib.readFromCSV(filnamn);
+        String[] rubriker = null;
+        
+        try {
+            rubriker = lib.getRubriker(filnamn);
+        } catch (IOException ex) {
+            System.out.println("Någonting gick fel");
         }
-        else{
-            try{
-                BufferedReader lasfil = new BufferedReader(new FileReader(filnamn));
-
-                String[] datapost;
-                String[] rubriker;
-                
-                String line = lasfil.readLine();
-                rubriker = line.split(",");
-                
-                line = lasfil.readLine();
-                
-                ArrayList<AbstractItem> info = new ArrayList<>();
-                
-                while(line != null){
-                    
-                    datapost = line.split(",");
-                    
-                    AbstractItem item = new AbstractItem(datapost[0], datapost[1], datapost[2], datapost[3]);
-                    info.add(item);
-                    
-                    line = lasfil.readLine();
-                    
-                }
-                
-                txaUtskrift.setText("");
-                
-                Collections.sort(info);
-                
-                for(AbstractItem abItem : info){
-                    txaUtskrift.append(
-                            rubriker[0] + ": " + abItem.getNamn() + "\n" + 
-                            rubriker[1] + ": " + abItem.getGenre() + "\n" + 
-                            rubriker[2] + ": " + abItem.getÅr() + "\n" +
-                            rubriker[3] + ": " + abItem.getTyp() + "\n\n");
-                }
-                lasfil.close();
-            }
-            
-            catch(FileNotFoundException e){
-                System.out.println("Filen kunde inte hittas. Vänligen kontrollera att filen existerar.");
-            }
-            
-            catch(IOException e){
-                System.out.println("Någonting gick fel när filen skulle läsas.");
-            }
+        //FIXA SÅ ATT RUBRIKER-FUNKTIONEN FUNKAR
+        for(AbstractItem abItem : info){
+            txaUtskrift.append(
+                    rubriker[0] + ": " + abItem.getNamn() + "\n" + 
+                    rubriker[1] + ": " + abItem.getGenre() + "\n" + 
+                    rubriker[2] + ": " + abItem.getÅr() + "\n" +
+                    rubriker[3] + ": " + abItem.getTyp() + "\n\n");
         }
     }//GEN-LAST:event_btnLäsActionPerformed
 
