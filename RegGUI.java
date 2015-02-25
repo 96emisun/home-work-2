@@ -24,6 +24,7 @@ import javax.swing.JFileChooser;
  */
 public class RegGUI extends javax.swing.JFrame {
     
+    private Library lib;
     private String filnamn;
     
     /**
@@ -31,7 +32,7 @@ public class RegGUI extends javax.swing.JFrame {
      */
     public RegGUI() {
         initComponents();
-        filnamn = null;
+        lib = new Library();
     }
 
     /**
@@ -214,64 +215,38 @@ public class RegGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVäljFilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVäljFilActionPerformed
-        JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
-        fc.showDialog(null, "Välj Fil");
-        
-        try{
-            filnamn = fc.getSelectedFile().getName();
-            System.out.println("Filen " + filnamn + " är nu vald");
-        }
-        catch(NullPointerException e){}
+        lib.väljFil();
+        filnamn = lib.getFilnamn();
     }//GEN-LAST:event_btnVäljFilActionPerformed
 
     private void btnLäggTillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLäggTillActionPerformed
+        
+        AbstractItemWIP item = null;
+        
         if(filnamn == null){
             System.out.println("Du måste välja en fil att skriva till");
         }
         else{
-            try{
-                BufferedReader lasfil = new BufferedReader(new FileReader(filnamn));
-            } 
-            catch (FileNotFoundException ex) {
-                System.out.println("Filen hittades inte, skapar fil...");
-                try {
-                    PrintWriter skrivfil = new PrintWriter(new BufferedWriter(new FileWriter(filnamn, true)));
-                    skrivfil.println("Namn,Genre,Utgivningsår,Typ");
-                    System.out.println("Filen har skapats");
-                    skrivfil.close();
-                } catch (IOException ex1) {
-                    System.out.println("Någonting gick fel");
-                }
+            
+            lib.checkFileExistence(filnamn);
+            
+            String valdTyp = null;
+            if(rbtnFilm.isSelected()){
+                item = new Film(txfNamn.getText(), txfGenre.getText(), txfÅr.getText());
+            }
+            else if(rbtnMusik.isSelected()){
+                item = new Musik(txfNamn.getText(), txfGenre.getText(), txfÅr.getText());
+            }
+            else if(rbtnSpel.isSelected()){
+                item = new Spel(txfNamn.getText(), txfGenre.getText(), txfÅr.getText());
             }
             
-            try{
-                String valdTyp = null;
-                if(rbtnFilm.isSelected()){
-                    valdTyp = "Film";
-                }
-                else if(rbtnMusik.isSelected()){
-                    valdTyp = "Musik";
-                }
-                else if(rbtnSpel.isSelected()){
-                    valdTyp = "Spel";
-                }
-                
-                AbstractItem item = new AbstractItem(txfNamn.getText(), txfGenre.getText(), txfÅr.getText(), valdTyp);
+            lib.writeToFile(filnamn, item);
 
-                PrintWriter skrivfil = new PrintWriter(new BufferedWriter(new FileWriter(filnamn, true)));
-
-                System.out.println("Skriver till fil...");
-                skrivfil.println(item.toString());
-                skrivfil.close();
-                System.out.println("Sparningen lyckades");
-
-                txfNamn.setText("");
-                txfGenre.setText("");
-                txfÅr.setText("");
-            }
-            catch(IOException e){
-                System.out.println("Error");
-            }
+            txfNamn.setText("");
+            txfGenre.setText("");
+            txfÅr.setText("");
+            
         }
     }//GEN-LAST:event_btnLäggTillActionPerformed
 
@@ -323,7 +298,7 @@ public class RegGUI extends javax.swing.JFrame {
             }
             
             catch(IOException e){
-                System.out.println("Error");
+                System.out.println("Någonting gick fel när filen skulle läsas.");
             }
         }
     }//GEN-LAST:event_btnLäsActionPerformed

@@ -20,18 +20,6 @@ public class Musik extends AbstractItemWIP{
     public String toString(){
         return this.namn + "," + this.genre + "," + this.år + "," + "Musik";
     }
-
-    public String getNamn() {
-        return namn;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public String getÅr() {
-        return år;
-    }
     
     @Override
     public int compareTo(Object other) {

@@ -3,6 +3,7 @@ public abstract class AbstractItemWIP implements Comparable {
     private String namn;
     private String genre;
     private String år;
+    private String typ;
     
     public AbstractItemWIP(){
         
@@ -21,6 +22,10 @@ public abstract class AbstractItemWIP implements Comparable {
 
     public String getÅr() {
         return år;
+    }
+    
+    public String getTyp() {
+        return typ;
     }
     
     @Override
