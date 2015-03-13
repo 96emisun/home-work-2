@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="btnGroup">
     </Component>
@@ -60,8 +60,8 @@
         <Container class="javax.swing.JPanel" name="pnlTab1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="tab1">
-                <Property name="tabTitle" type="java.lang.String" value="tab1"/>
+              <JTabbedPaneConstraints tabName="Library">
+                <Property name="tabTitle" type="java.lang.String" value="Library"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -72,105 +72,133 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="rbtnMusik" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="rbtnSpel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="rbtnFilm" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblÅr" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblNamn" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblGenre" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txfNamn" pref="155" max="32767" attributes="0"/>
-                                          <Component id="txfGenre" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txfÅr" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="btnVäljFil" min="-2" pref="84" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnLäggTill" min="-2" pref="86" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnLäs" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="rbtnMusic" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rbtnGame" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rbtnMovie" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblYear" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblGenre" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txfName" pref="195" max="32767" attributes="0"/>
+                                  <Component id="txfGenre" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txfYear" alignment="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
+                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnAddCSV" min="-2" pref="107" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnAddXML" min="-2" pref="107" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="cbSort" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnRead" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jSeparator1" alignment="0" min="-2" pref="330" max="-2" attributes="0"/>
+                          <Component id="btnChooseFile" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="315" max="-2" attributes="0"/>
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnChooseFile" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="rbtnFilm" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblNamn" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txfNamn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbtnMovie" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txfName" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="rbtnMusik" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbtnMusic" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblGenre" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txfGenre" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="rbtnSpel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblÅr" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txfÅr" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbtnGame" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblYear" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txfYear" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnLäggTill" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnVäljFil" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnLäs" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="419" max="32767" attributes="0"/>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnAddXML" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAddCSV" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cbSort" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnRead" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="226" max="32767" attributes="0"/>
                   </Group>
+                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JRadioButton" name="rbtnFilm">
+            <Component class="javax.swing.JRadioButton" name="rbtnMovie">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btnGroup"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Film"/>
+                <Property name="text" type="java.lang.String" value="Movie"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="rbtnMusik">
+            <Component class="javax.swing.JRadioButton" name="rbtnMusic">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btnGroup"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Musik"/>
+                <Property name="text" type="java.lang.String" value="Music"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="rbtnSpel">
+            <Component class="javax.swing.JRadioButton" name="rbtnGame">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btnGroup"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Spel"/>
+                <Property name="text" type="java.lang.String" value="Game"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblNamn">
+            <Component class="javax.swing.JLabel" name="lblName">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Namn:"/>
+                <Property name="text" type="java.lang.String" value="Name:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblGenre">
@@ -178,20 +206,20 @@
                 <Property name="text" type="java.lang.String" value="Genre:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl&#xc5;r">
+            <Component class="javax.swing.JLabel" name="lblYear">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#xc5;r:"/>
+                <Property name="text" type="java.lang.String" value="Year:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txfNamn">
+            <Component class="javax.swing.JTextField" name="txfName">
             </Component>
             <Component class="javax.swing.JTextField" name="txfGenre">
             </Component>
-            <Component class="javax.swing.JTextField" name="txf&#xc5;r">
+            <Component class="javax.swing.JTextField" name="txfYear">
             </Component>
-            <Component class="javax.swing.JButton" name="btnL&#xe4;ggTill">
+            <Component class="javax.swing.JButton" name="btnAddCSV">
               <Properties>
-                <Property name="text" type="java.lang.String" value="L&#xe4;gg Till"/>
+                <Property name="text" type="java.lang.String" value="Save as CSV"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[85, 23]"/>
                 </Property>
@@ -200,7 +228,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnL&#xe4;ggTillActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddCSVActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -210,7 +238,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="txaUtskrift">
+                <Component class="javax.swing.JTextArea" name="txaPrint">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
@@ -218,9 +246,9 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btnV&#xe4;ljFil">
+            <Component class="javax.swing.JButton" name="btnChooseFile">
               <Properties>
-                <Property name="text" type="java.lang.String" value="V&#xe4;lj Fil"/>
+                <Property name="text" type="java.lang.String" value="Choose Library"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[85, 23]"/>
                 </Property>
@@ -229,12 +257,12 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnV&#xe4;ljFilActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChooseFileActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnL&#xe4;s">
+            <Component class="javax.swing.JButton" name="btnRead">
               <Properties>
-                <Property name="text" type="java.lang.String" value="L&#xe4;s Inneh&#xe5;ll"/>
+                <Property name="text" type="java.lang.String" value="Read From CSV"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[85, 23]"/>
                 </Property>
@@ -243,8 +271,60 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnL&#xe4;sActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReadActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbSort">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Name"/>
+                    <StringItem index="1" value="Genre"/>
+                    <StringItem index="2" value="Year"/>
+                    <StringItem index="3" value="Type"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sort the list based on:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Choose the type of object and enter it&apos;s information:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Choose which library you want to save to or read from:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Save the information to the selected library:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnAddXML">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Save as XML"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddXMLActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Choose how to sort the library and then read from it:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Read From XML"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator1">
             </Component>
           </SubComponents>
         </Container>
@@ -260,7 +340,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="295" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="677" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">

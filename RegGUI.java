@@ -1,16 +1,7 @@
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,7 +16,7 @@ import javax.swing.JFileChooser;
 public class RegGUI extends javax.swing.JFrame {
     
     private Library lib;
-    private String filnamn;
+    private String filename;
     
     /**
      * Creates new form RegGUI
@@ -47,20 +38,29 @@ public class RegGUI extends javax.swing.JFrame {
         btnGroup = new javax.swing.ButtonGroup();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         pnlTab1 = new javax.swing.JPanel();
-        rbtnFilm = new javax.swing.JRadioButton();
-        rbtnMusik = new javax.swing.JRadioButton();
-        rbtnSpel = new javax.swing.JRadioButton();
-        lblNamn = new javax.swing.JLabel();
+        rbtnMovie = new javax.swing.JRadioButton();
+        rbtnMusic = new javax.swing.JRadioButton();
+        rbtnGame = new javax.swing.JRadioButton();
+        lblName = new javax.swing.JLabel();
         lblGenre = new javax.swing.JLabel();
-        lblÅr = new javax.swing.JLabel();
-        txfNamn = new javax.swing.JTextField();
+        lblYear = new javax.swing.JLabel();
+        txfName = new javax.swing.JTextField();
         txfGenre = new javax.swing.JTextField();
-        txfÅr = new javax.swing.JTextField();
-        btnLäggTill = new javax.swing.JButton();
+        txfYear = new javax.swing.JTextField();
+        btnAddCSV = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txaUtskrift = new javax.swing.JTextArea();
-        btnVäljFil = new javax.swing.JButton();
-        btnLäs = new javax.swing.JButton();
+        txaPrint = new javax.swing.JTextArea();
+        btnChooseFile = new javax.swing.JButton();
+        btnRead = new javax.swing.JButton();
+        cbSort = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnAddXML = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
         pnlTab2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -69,51 +69,72 @@ public class RegGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register_Emil_Sundqvist");
 
-        btnGroup.add(rbtnFilm);
-        rbtnFilm.setText("Film");
+        btnGroup.add(rbtnMovie);
+        rbtnMovie.setText("Movie");
 
-        btnGroup.add(rbtnMusik);
-        rbtnMusik.setText("Musik");
+        btnGroup.add(rbtnMusic);
+        rbtnMusic.setText("Music");
 
-        btnGroup.add(rbtnSpel);
-        rbtnSpel.setText("Spel");
+        btnGroup.add(rbtnGame);
+        rbtnGame.setText("Game");
 
-        lblNamn.setText("Namn:");
+        lblName.setText("Name:");
 
         lblGenre.setText("Genre:");
 
-        lblÅr.setText("År:");
+        lblYear.setText("Year:");
 
-        btnLäggTill.setText("Lägg Till");
-        btnLäggTill.setMaximumSize(new java.awt.Dimension(85, 23));
-        btnLäggTill.setMinimumSize(new java.awt.Dimension(85, 23));
-        btnLäggTill.addActionListener(new java.awt.event.ActionListener() {
+        btnAddCSV.setText("Save as CSV");
+        btnAddCSV.setMaximumSize(new java.awt.Dimension(85, 23));
+        btnAddCSV.setMinimumSize(new java.awt.Dimension(85, 23));
+        btnAddCSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLäggTillActionPerformed(evt);
+                btnAddCSVActionPerformed(evt);
             }
         });
 
-        txaUtskrift.setColumns(20);
-        txaUtskrift.setRows(5);
-        jScrollPane1.setViewportView(txaUtskrift);
+        txaPrint.setColumns(20);
+        txaPrint.setRows(5);
+        jScrollPane1.setViewportView(txaPrint);
 
-        btnVäljFil.setText("Välj Fil");
-        btnVäljFil.setMaximumSize(new java.awt.Dimension(85, 23));
-        btnVäljFil.setMinimumSize(new java.awt.Dimension(85, 23));
-        btnVäljFil.addActionListener(new java.awt.event.ActionListener() {
+        btnChooseFile.setText("Choose Library");
+        btnChooseFile.setMaximumSize(new java.awt.Dimension(85, 23));
+        btnChooseFile.setMinimumSize(new java.awt.Dimension(85, 23));
+        btnChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVäljFilActionPerformed(evt);
+                btnChooseFileActionPerformed(evt);
             }
         });
 
-        btnLäs.setText("Läs Innehåll");
-        btnLäs.setMaximumSize(new java.awt.Dimension(85, 23));
-        btnLäs.setMinimumSize(new java.awt.Dimension(85, 23));
-        btnLäs.addActionListener(new java.awt.event.ActionListener() {
+        btnRead.setText("Read From CSV");
+        btnRead.setMaximumSize(new java.awt.Dimension(85, 23));
+        btnRead.setMinimumSize(new java.awt.Dimension(85, 23));
+        btnRead.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLäsActionPerformed(evt);
+                btnReadActionPerformed(evt);
             }
         });
+
+        cbSort.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Name", "Genre", "Year", "Type" }));
+
+        jLabel1.setText("Sort the list based on:");
+
+        jLabel2.setText("Choose the type of object and enter it's information:");
+
+        jLabel3.setText("Choose which library you want to save to or read from:");
+
+        jLabel4.setText("Save the information to the selected library:");
+
+        btnAddXML.setText("Save as XML");
+        btnAddXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddXMLActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Choose how to sort the library and then read from it:");
+
+        jButton1.setText("Read From XML");
 
         javax.swing.GroupLayout pnlTab1Layout = new javax.swing.GroupLayout(pnlTab1);
         pnlTab1.setLayout(pnlTab1Layout);
@@ -122,68 +143,95 @@ public class RegGUI extends javax.swing.JFrame {
             .addGroup(pnlTab1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(pnlTab1Layout.createSequentialGroup()
                         .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlTab1Layout.createSequentialGroup()
-                                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rbtnMusik)
-                                    .addComponent(rbtnSpel)
-                                    .addComponent(rbtnFilm))
-                                .addGap(16, 16, 16)
-                                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblÅr)
-                                    .addComponent(lblNamn)
-                                    .addComponent(lblGenre))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txfNamn, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                    .addComponent(txfGenre)
-                                    .addComponent(txfÅr)))
-                            .addGroup(pnlTab1Layout.createSequentialGroup()
-                                .addComponent(btnVäljFil, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLäggTill, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnLäs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(rbtnMusic)
+                            .addComponent(rbtnGame)
+                            .addComponent(rbtnMovie))
+                        .addGap(16, 16, 16)
+                        .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblYear)
+                            .addComponent(lblName)
+                            .addComponent(lblGenre))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txfName, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addComponent(txfGenre)
+                            .addComponent(txfYear)))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addGroup(pnlTab1Layout.createSequentialGroup()
+                        .addComponent(btnAddCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAddXML, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTab1Layout.createSequentialGroup()
+                        .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cbSort, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRead, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         pnlTab1Layout.setVerticalGroup(
             pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTab1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtnFilm)
-                    .addComponent(lblNamn)
-                    .addComponent(txfNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnChooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtnMusik)
+                    .addComponent(rbtnMovie)
+                    .addComponent(lblName)
+                    .addComponent(txfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnMusic)
                     .addComponent(lblGenre)
                     .addComponent(txfGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtnSpel)
-                    .addComponent(lblÅr)
-                    .addComponent(txfÅr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rbtnGame)
+                    .addComponent(lblYear)
+                    .addComponent(txfYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLäggTill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVäljFil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLäs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAddXML)
+                    .addComponent(btnAddCSV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(226, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
 
-        jTabbedPane3.addTab("tab1", pnlTab1);
+        jTabbedPane3.addTab("Library", pnlTab1);
 
         javax.swing.GroupLayout pnlTab2Layout = new javax.swing.GroupLayout(pnlTab2);
         pnlTab2.setLayout(pnlTab2Layout);
         pnlTab2Layout.setHorizontalGroup(
             pnlTab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 295, Short.MAX_VALUE)
+            .addGap(0, 677, Short.MAX_VALUE)
         );
         pnlTab2Layout.setVerticalGroup(
             pnlTab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,67 +256,96 @@ public class RegGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVäljFilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVäljFilActionPerformed
-        lib.väljFil();
-        filnamn = lib.getFilnamn();
-    }//GEN-LAST:event_btnVäljFilActionPerformed
+    private void btnChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseFileActionPerformed
+        lib.chooseFile();
+        filename = lib.getFilename();
+    }//GEN-LAST:event_btnChooseFileActionPerformed
 
-    private void btnLäggTillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLäggTillActionPerformed
+    private void btnAddCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCSVActionPerformed
         
-        AbstractItemWIP item = null;
+        AbstractItem item = null;
         
-        if(filnamn == null){
-            System.out.println("Du måste välja en fil att skriva till");
+        if(filename == null){
+            JOptionPane.showMessageDialog(null, "You have not chosen a file to write to"); 
         }
         else{
             
-            lib.checkFileExistence(filnamn);
+            lib.checkFileExistence(filename);
             
-            if(rbtnFilm.isSelected()){
-                item = new Film(txfNamn.getText(), txfGenre.getText(), txfÅr.getText());
+            if(rbtnMovie.isSelected()){
+                item = new Movie(txfName.getText(), txfGenre.getText(), txfYear.getText(), null);
             }
-            else if(rbtnMusik.isSelected()){
-                item = new Musik(txfNamn.getText(), txfGenre.getText(), txfÅr.getText());
+            else if(rbtnMusic.isSelected()){
+                item = new Music(txfName.getText(), txfGenre.getText(), txfYear.getText(), null);
             }
-            else if(rbtnSpel.isSelected()){
-                item = new Spel(txfNamn.getText(), txfGenre.getText(), txfÅr.getText());
+            else if(rbtnGame.isSelected()){
+                item = new Game(txfName.getText(), txfGenre.getText(), txfYear.getText(), null);
             }
 
-            lib.writeToCSV(filnamn, item);
-
-            txfNamn.setText("");
-            txfGenre.setText("");
-            txfÅr.setText("");
-            
+            if(lib.writeToCSV(filename, item)){
+                txfName.setText("");
+                txfGenre.setText("");
+                txfYear.setText("");
+            }
         }
-    }//GEN-LAST:event_btnLäggTillActionPerformed
+    }//GEN-LAST:event_btnAddCSVActionPerformed
 
-    private void btnLäsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLäsActionPerformed
-        txaUtskrift.setText("");
+    private void btnReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadActionPerformed
+        txaPrint.setText("");
         
-        ArrayList<AbstractItem> info = lib.readFromCSV(filnamn);
-        String[] rubriker = null;
+        String sorting = String.valueOf(cbSort.getSelectedItem());
+        
+        ArrayList<AbstractItem> info = lib.readFromCSV(filename, sorting);
+        String[] headlines = null;
         
         try {
-            rubriker = lib.getRubriker(filnamn);
+            headlines = lib.getHeadlines(filename);
         } catch (IOException ex) {
-            System.out.println("Någonting gick fel");
+            JOptionPane.showMessageDialog(null, "Something went wrong"); 
         }
-        //FIXA SÅ ATT RUBRIKER-FUNKTIONEN FUNKAR
+        
         for(AbstractItem abItem : info){
-            txaUtskrift.append(
-                    rubriker[0] + ": " + abItem.getNamn() + "\n" + 
-                    rubriker[1] + ": " + abItem.getGenre() + "\n" + 
-                    rubriker[2] + ": " + abItem.getÅr() + "\n" +
-                    rubriker[3] + ": " + abItem.getTyp() + "\n\n");
+            txaPrint.append(
+                    headlines[0] + ": " + abItem.getName() + "\n" + 
+                    headlines[1] + ": " + abItem.getGenre() + "\n" + 
+                    headlines[2] + ": " + abItem.getYear() + "\n" +
+                    headlines[3] + ": " + abItem.getType() + "\n\n");
         }
-    }//GEN-LAST:event_btnLäsActionPerformed
+    }//GEN-LAST:event_btnReadActionPerformed
+
+    private void btnAddXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddXMLActionPerformed
+        AbstractItem item = null;
+        
+        if(filename == null){
+            JOptionPane.showMessageDialog(null, "You have not chosen a file to write to"); 
+        }
+        else{
+            
+            //lib.checkFileExistence(filename);
+            
+            if(rbtnMovie.isSelected()){
+                item = new Movie(txfName.getText(), txfGenre.getText(), txfYear.getText(), null);
+            }
+            else if(rbtnMusic.isSelected()){
+                item = new Music(txfName.getText(), txfGenre.getText(), txfYear.getText(), null);
+            }
+            else if(rbtnGame.isSelected()){
+                item = new Game(txfName.getText(), txfGenre.getText(), txfYear.getText(), null);
+            }
+
+            if(lib.writeToXML(filename, item)){
+                txfName.setText("");
+                txfGenre.setText("");
+                txfYear.setText("");
+            }
+        }
+    }//GEN-LAST:event_btnAddXMLActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,26 +383,35 @@ public class RegGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddCSV;
+    private javax.swing.JButton btnAddXML;
+    private javax.swing.JButton btnChooseFile;
     private javax.swing.ButtonGroup btnGroup;
-    private javax.swing.JButton btnLäggTill;
-    private javax.swing.JButton btnLäs;
-    private javax.swing.JButton btnVäljFil;
+    private javax.swing.JButton btnRead;
+    private javax.swing.JComboBox cbSort;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JLabel lblGenre;
-    private javax.swing.JLabel lblNamn;
-    private javax.swing.JLabel lblÅr;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblYear;
     private javax.swing.JPanel pnlTab1;
     private javax.swing.JPanel pnlTab2;
-    private javax.swing.JRadioButton rbtnFilm;
-    private javax.swing.JRadioButton rbtnMusik;
-    private javax.swing.JRadioButton rbtnSpel;
-    private javax.swing.JTextArea txaUtskrift;
+    private javax.swing.JRadioButton rbtnGame;
+    private javax.swing.JRadioButton rbtnMovie;
+    private javax.swing.JRadioButton rbtnMusic;
+    private javax.swing.JTextArea txaPrint;
     private javax.swing.JTextField txfGenre;
-    private javax.swing.JTextField txfNamn;
-    private javax.swing.JTextField txfÅr;
+    private javax.swing.JTextField txfName;
+    private javax.swing.JTextField txfYear;
     // End of variables declaration//GEN-END:variables
 }
