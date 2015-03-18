@@ -1,11 +1,11 @@
 public class Game extends AbstractItem{
     
-    private String name;
-    private String genre;
-    private String year;
-    private String sorting;
-    private String damaged;
-    private String onLoan;
+    private final String name;
+    private final String genre;
+    private final String year;
+    private final String sorting;
+    private final String damaged;
+    private final String onLoan;
     
     public Game(){
         this.name = "";
@@ -101,6 +101,10 @@ public class Game extends AbstractItem{
         
     }
     
+    /**
+     * 
+     * @return Returns numbers representing the Damaged/On Loan statuses of an item
+     */
     @Override
     public String getStatusString() {
         

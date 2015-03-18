@@ -71,11 +71,11 @@ public class Library{
         
         try{
             filename = fc.getSelectedFile().getName();
-            if(!"csv".equals(getFormat(filename)) && !"xml".equals(getFormat(filename))){
-                JOptionPane.showMessageDialog(null, "The file has to be either a CSV or an XML file");
+            if("csv".equals(getFormat(filename))){
+                checkFileExistence(filename);
             }
             else{
-                checkFileExistence(filename);
+                JOptionPane.showMessageDialog(null, "The file has to be a CSV file");
             }
         }
         catch(NullPointerException e){}
@@ -112,7 +112,6 @@ public class Library{
 
             writeFile.println(item.toString());
             writeFile.close();
-            JOptionPane.showMessageDialog(null, "Successfully wrote to file"); 
             return true;
         }
         catch(NullPointerException e){
@@ -128,7 +127,7 @@ public class Library{
     /*
         Creates a new node in an XML document
     */
-    private static void createNode(XMLEventWriter eventWriter, String name,
+    private void createNode(XMLEventWriter eventWriter, String name,
         String value) throws XMLStreamException {
 
         XMLEventFactory eventFactory = XMLEventFactory.newInstance();
@@ -151,64 +150,9 @@ public class Library{
     }
     
     /*
-        Saves the item to an XML file
-    */
-    public boolean writeToXML(String filename, AbstractItem item) {
-        try{
-            
-            // Create an XMLOutputFactory
-            XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
-            // create XMLEventWriter
-            XMLEventWriter eventWriter = outputFactory
-                    .createXMLEventWriter(new FileOutputStream(filename));
-
-            // Create an EventFactory
-            XMLEventFactory eventFactory = XMLEventFactory.newInstance();
-            XMLEvent end = eventFactory.createDTD("\n");
-            XMLEvent tab = eventFactory.createDTD("\t");
-            // Create and write Start Tag
-            StartDocument startDocument = eventFactory.createStartDocument();
-            eventWriter.add(startDocument);
-
-            // Create config open tag
-            StartElement libStartElement = eventFactory.createStartElement("",
-                    "", "library");
-            eventWriter.add(end);
-            eventWriter.add(libStartElement);
-            eventWriter.add(end);
-            StartElement itemStartElement = eventFactory.createStartElement("",
-                    "", "item");
-            
-            // Add the items
-            eventWriter.add(tab);
-            eventWriter.add(itemStartElement);
-            eventWriter.add(end);
-            createNode(eventWriter, "name", item.getName());
-            createNode(eventWriter, "genre", item.getGenre());
-            createNode(eventWriter, "year", item.getYear());
-            createNode(eventWriter, "type", item.getType());
-            eventWriter.add(tab);
-            eventWriter.add(eventFactory.createEndElement("", "", "item"));
-            eventWriter.add(end);
-
-            //end
-            eventWriter.add(eventFactory.createEndElement("", "", "library"));
-            eventWriter.add(end);
-            eventWriter.add(eventFactory.createEndDocument());
-            eventWriter.close();
-            
-            return true;
-        } 
-        catch (XMLStreamException | IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-    
-    /*
         Reads data from a CSV file
     */
-    public ArrayList readFromCSV(String filename, String sorting){
+    public ArrayList readFromCSV(String sorting){
         if(filename == null){
             JOptionPane.showMessageDialog(null, "You have to choose a file to read from"); 
             return null;
@@ -304,117 +248,124 @@ public class Library{
     public ArrayList<AbstractItem> read(String sort, String format){
         switch(format){
             case "csv":
-                return readFromCSV(filename, sort);
+                return readFromCSV(sort);
             case "xml":
-                return readFromXML(filename);
+                return readFromXML();
             default:
                 return null;
         }
     }
     
     /*
-        Runs different methods for writing depending on the filetype of the selected file
-    */
-    public boolean write(String format, AbstractItem item){
-        switch(format){
-            case "csv":
-                return writeToCSV(filename, item);
-            case "xml":
-                return writeToXML(filename, item);
-            default:
-                return false;
-        }
-    }
-    
-    /*
         Reads data from an XML document
     */
-    public ArrayList<AbstractItem> readFromXML(String filename) {
+    public ArrayList<AbstractItem> readFromXML() {
 
         String name = null;
         String genre = null;
         String year = null;
         String type = null;
+        String damaged = null;
+        String onLoan = null;
         AbstractItem item = null;
 
         ArrayList<AbstractItem> items = new ArrayList<>();
-        try {
+        
+        if(!"xml".equals(getFormat(filename))){
             
-            // First, create a new XMLInputFactory
-            XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-            
-            // Setup a new eventReader
-            InputStream in = new FileInputStream(filename);
-            XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
-            
-            // Read the XML document
-            while (eventReader.hasNext()) {
-                XMLEvent event = eventReader.nextEvent();
-                if (event.isStartElement()) {
-                    StartElement startElement = event.asStartElement();
-                    
-                    // If we have an item element, we create a new item
-                    if ("item".equals(startElement.getName().getLocalPart())) {
-                        Iterator<Attribute> attributes = startElement.getAttributes();
-                        while (attributes.hasNext()) {
-                            Attribute attribute = attributes.next();
-                            if (attribute.getName().toString().equals("name")) {
-                                name = attribute.getValue();
+            try {
+
+                // First, create a new XMLInputFactory
+                XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+
+                // Setup a new eventReader
+                InputStream in = new FileInputStream(filename);
+                XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+
+                // Read the XML document
+                while (eventReader.hasNext()) {
+                    XMLEvent event = eventReader.nextEvent();
+                    if (event.isStartElement()) {
+                        StartElement startElement = event.asStartElement();
+
+                        // If we have an item element, we create a new item
+                        if ("item".equals(startElement.getName().getLocalPart())) {
+                            Iterator<Attribute> attributes = startElement.getAttributes();
+                            while (attributes.hasNext()) {
+                                Attribute attribute = attributes.next();
+                                if ("name".equals(attribute.getName().toString())) {
+                                    name = attribute.getValue();
+                                }
                             }
                         }
-                    }
-                    
-                    // Reads the data from the children of <item>
-                    if (event.isStartElement()) {
-                        if (event.asStartElement().getName().getLocalPart().equals("name")) {
+
+                        // Reads the data from the children of <item>
+                        if (event.isStartElement()) {
+                            if ("name".equals(event.asStartElement().getName().getLocalPart())) {
+                                event = eventReader.nextEvent();
+                                name = event.asCharacters().getData();
+                                continue;
+                            }
+                        }
+
+                        if ("genre".equals(event.asStartElement().getName().getLocalPart())) {
                             event = eventReader.nextEvent();
-                            name = event.asCharacters().getData();
-                            System.out.println("Test1");
+                            genre = event.asCharacters().getData();
+                            continue;
+                        }
+
+                        if ("year".equals(event.asStartElement().getName().getLocalPart())) {
+                            event = eventReader.nextEvent();
+                            year = event.asCharacters().getData();
+                            continue;
+                        }
+
+                        if ("type".equals(event.asStartElement().getName().getLocalPart())) {
+                            event = eventReader.nextEvent();
+                            type = event.asCharacters().getData();
+                            continue;
+                        }
+
+                        if ("damaged".equals(event.asStartElement().getName().getLocalPart())) {
+                            event = eventReader.nextEvent();
+                            damaged = event.asCharacters().getData();
+                            continue;
+                        }
+
+                        if ("onLoan".equals(event.asStartElement().getName().getLocalPart())) {
+                            event = eventReader.nextEvent();
+                            onLoan = event.asCharacters().getData();
                             continue;
                         }
                     }
-                    
-                    if (event.asStartElement().getName().getLocalPart().equals("genre")) {
-                        event = eventReader.nextEvent();
-                        genre = event.asCharacters().getData();
-                        System.out.println("Test2");
-                        continue;
+
+                    if("Movie".equals(type)){
+                        item = new Movie(name, genre, year, damaged, onLoan, null);
+                    } else if("Music".equals(type)){
+                        item = new Music(name, genre, year, damaged, onLoan, null);
+                    } else if("Game".equals(type)){
+                        item = new Game(name, genre, year, damaged, onLoan, null);
                     }
 
-                    if (event.asStartElement().getName().getLocalPart().equals("year")) {
-                        event = eventReader.nextEvent();
-                        year = event.asCharacters().getData();
-                        System.out.println(year);
-                        continue;
+                    // If we reach the end of an item element, we add it to the list
+                    if (event.isEndElement()) {
+                        EndElement endElement = event.asEndElement();
+                        if ("item".equals(endElement.getName().getLocalPart())) {
+                            items.add(item);
+                        }
                     }
 
-                    if (event.asStartElement().getName().getLocalPart().equals("type")) {
-                        event = eventReader.nextEvent();
-                        type = event.asCharacters().getData();
-                        System.out.println(type);
-                        continue;
-                    }
                 }
-                //item = new Game(name, genre, year, "Name");
-                
-                // If we reach the end of an item element, we add it to the list
-                if (event.isEndElement()) {
-                    EndElement endElement = event.asEndElement();
-                    if ("item".equals(endElement.getName().getLocalPart())) {
-                        items.add(item);
-                    }
-                }
+            } 
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } 
+            catch (XMLStreamException e) {}
 
-            }
-        } 
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } 
-        catch (XMLStreamException e) {
-            JOptionPane.showMessageDialog(null, "Something went wrong, please check that you have selected an XML file");
+            return items;
+        } else{
+            return null;
         }
-        
-        return items;
     }
     
     /*
@@ -457,16 +408,16 @@ public class Library{
                         // Puts all the names and values of the attributes in arrays
                         while (attributes.hasNext()) {
                             
-                            Attribute attribute = attributes.next();
-                            
-                            // Changes the first letter of each attribute to uppercase
-                            String attributeName = attribute.getName().toString();
-                            char upper = Character.toUpperCase(attributeName.charAt(0));
-                            String finalName = upper + attributeName.substring(1);
-                            
-                            attributeNames[i] = finalName;
-                            attributeValues[i] = attribute.getValue();
-                            ++i;
+                        Attribute attribute = attributes.next();
+
+                        // Changes the first letter of each attribute to uppercase
+                        String attributeName = attribute.getName().toString();
+                        char upper = Character.toUpperCase(attributeName.charAt(0));
+                        String finalName = upper + attributeName.substring(1);
+
+                        attributeNames[i] = finalName;
+                        attributeValues[i] = attribute.getValue();
+                        ++i;
                             
                         }
                     }
@@ -569,5 +520,67 @@ public class Library{
         
         writeFile.close();
         JOptionPane.showMessageDialog(null, itemName + " was successfully updated");
+    }
+
+    /*
+        Exports the data in the ArrayList to a selected XML file
+    */
+    public void export(String file, ArrayList<AbstractItem> items) {
+        try{
+            
+            // Create an XMLOutputFactory
+            XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+            // create XMLEventWriter
+            XMLEventWriter eventWriter = outputFactory
+                    .createXMLEventWriter(new FileOutputStream(file));
+
+            // Create an EventFactory
+            XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+            XMLEvent end = eventFactory.createDTD("\n");
+            XMLEvent tab = eventFactory.createDTD("\t");
+            // Create and write Start Tag
+            StartDocument startDocument = eventFactory.createStartDocument();
+            eventWriter.add(startDocument);
+
+            // Create config open tag
+            StartElement libStartElement = eventFactory.createStartElement("",
+                    "", "library");
+            eventWriter.add(end);
+            eventWriter.add(libStartElement);
+            eventWriter.add(end);
+            StartElement itemStartElement = eventFactory.createStartElement("",
+                    "", "item");
+            
+            // Add the items
+            for(AbstractItem abItem : items){
+                
+                eventWriter.add(tab);
+                eventWriter.add(itemStartElement);
+                eventWriter.add(end);
+
+                createNode(eventWriter, "name", abItem.getName());
+                createNode(eventWriter, "genre", abItem.getGenre());
+                createNode(eventWriter, "year", abItem.getYear());
+                createNode(eventWriter, "type", abItem.getType());
+                createNode(eventWriter, "damaged", abItem.getDamaged());
+                createNode(eventWriter, "onLoan", abItem.getOnLoan());
+
+                eventWriter.add(tab);
+                eventWriter.add(eventFactory.createEndElement("", "", "item"));
+                eventWriter.add(end);
+                }
+
+                //end
+                eventWriter.add(eventFactory.createEndElement("", "", "library"));
+                eventWriter.add(end);
+                eventWriter.add(eventFactory.createEndDocument());
+                eventWriter.close();
+                
+                JOptionPane.showMessageDialog(null, "Successfully exported to " + file); 
+        } 
+        
+        catch (XMLStreamException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }

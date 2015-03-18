@@ -4,19 +4,13 @@ import java.util.ArrayList;
 import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author 96emisun
  */
 public class RegGUI extends javax.swing.JFrame {
     
-    private Library lib;
+    private final Library lib;
     private String filename;
     private ArrayList<AbstractItem> info;
     
@@ -82,7 +76,9 @@ public class RegGUI extends javax.swing.JFrame {
         txfIMDBYear = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menuExport = new javax.swing.JMenuItem();
+        menuAbout = new javax.swing.JMenuItem();
+        menuExit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Library_Emil_Sundqvist");
@@ -129,7 +125,7 @@ public class RegGUI extends javax.swing.JFrame {
         jLabel2.setText("Choose the type of object and enter it's information");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Choose which library you want to save to or read from");
+        jLabel3.setText("Select a CSV/XML file to read from");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Choose how to sort the library");
@@ -153,6 +149,7 @@ public class RegGUI extends javax.swing.JFrame {
         jLabel11.setText("Default sorting sorts in the order Type->Name->Year->Genre");
 
         btnDelete.setText("Delete");
+        btnDelete.setEnabled(false);
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -167,7 +164,7 @@ public class RegGUI extends javax.swing.JFrame {
         });
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jLabel13.setText("Only CSV files can be deleted from");
+        jLabel13.setText("Only CSV files can be deleted from or updated ");
 
         chbSaveDamaged.setText("Damaged");
 
@@ -186,10 +183,13 @@ public class RegGUI extends javax.swing.JFrame {
         });
 
         chbUpdateDamaged.setText("Damaged");
+        chbUpdateDamaged.setEnabled(false);
 
         chbUpdateOnLoan.setText("On loan");
+        chbUpdateOnLoan.setEnabled(false);
 
         btnUpdate.setText("Update");
+        btnUpdate.setEnabled(false);
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
@@ -212,42 +212,43 @@ public class RegGUI extends javax.swing.JFrame {
                     .addComponent(jSeparator2)
                     .addComponent(jSeparator1)
                     .addGroup(pnlTab1Layout.createSequentialGroup()
-                        .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addComponent(btnChooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addGroup(pnlTab1Layout.createSequentialGroup()
-                                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rbtnMusic)
-                                    .addComponent(rbtnGame)
-                                    .addComponent(rbtnMovie))
-                                .addGap(16, 16, 16)
-                                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblYear)
-                                    .addComponent(lblName)
-                                    .addComponent(lblGenre))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txfName)
-                                    .addComponent(txfGenre)
-                                    .addComponent(txfYear, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel13)
-                            .addGroup(pnlTab1Layout.createSequentialGroup()
-                                .addComponent(chbSaveDamaged)
-                                .addGap(18, 18, 18)
-                                .addComponent(chbSaveOnLoan))
-                            .addComponent(jSeparator4)
-                            .addComponent(jLabel14)
-                            .addComponent(btnAdd)
-                            .addComponent(chbUpdateDamaged)
-                            .addComponent(chbUpdateOnLoan)
-                            .addGroup(pnlTab1Layout.createSequentialGroup()
-                                .addComponent(btnUpdate)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnDelete))
-                            .addComponent(cobUpdate, 0, 330, Short.MAX_VALUE))
+                        .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addComponent(btnChooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel10)
+                                .addGroup(pnlTab1Layout.createSequentialGroup()
+                                    .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(rbtnMusic)
+                                        .addComponent(rbtnGame)
+                                        .addComponent(rbtnMovie))
+                                    .addGap(16, 16, 16)
+                                    .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblYear)
+                                        .addComponent(lblName)
+                                        .addComponent(lblGenre))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txfName)
+                                        .addComponent(txfGenre)
+                                        .addComponent(txfYear, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel2)
+                                .addGroup(pnlTab1Layout.createSequentialGroup()
+                                    .addComponent(chbSaveDamaged)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(chbSaveOnLoan))
+                                .addComponent(jSeparator4)
+                                .addComponent(jLabel14)
+                                .addComponent(btnAdd)
+                                .addComponent(chbUpdateDamaged)
+                                .addComponent(chbUpdateOnLoan)
+                                .addGroup(pnlTab1Layout.createSequentialGroup()
+                                    .addComponent(btnUpdate)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnDelete))
+                                .addComponent(cobUpdate, 0, 330, Short.MAX_VALUE))
+                            .addComponent(jLabel13))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,9 +323,11 @@ public class RegGUI extends javax.swing.JFrame {
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel13)
+                                .addGap(18, 18, 18)
                                 .addComponent(cobUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(chbUpdateDamaged)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chbUpdateOnLoan)
@@ -332,9 +335,7 @@ public class RegGUI extends javax.swing.JFrame {
                                 .addGroup(pnlTab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnUpdate)
                                     .addComponent(btnDelete))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel13)
-                                .addGap(0, 177, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE))))
                     .addComponent(jSeparator5))
                 .addContainerGap())
         );
@@ -395,10 +396,31 @@ public class RegGUI extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("Get info from IMDB", pnlTab2);
 
-        jMenu1.setText("Program");
+        jMenu1.setText("Options");
 
-        jMenuItem1.setText("Exit Program");
-        jMenu1.add(jMenuItem1);
+        menuExport.setText("Export As XML");
+        menuExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuExportActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuExport);
+
+        menuAbout.setText("About");
+        menuAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAboutActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuAbout);
+
+        menuExit.setText("Exit Program");
+        menuExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuExit);
 
         jMenuBar1.add(jMenu1);
 
@@ -420,11 +442,17 @@ public class RegGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+        Selects which file to write to / read from
+    */
     private void btnChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseFileActionPerformed
         filename = lib.chooseFile();
         read();
     }//GEN-LAST:event_btnChooseFileActionPerformed
 
+    /*
+        Sends a request to the IMDB API and displays the result in a textarea
+    */
     private void btnIMDBSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIMDBSearchActionPerformed
         txaPrint2.setText("");
         
@@ -447,6 +475,9 @@ public class RegGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnIMDBSearchActionPerformed
 
+    /*
+        Sends a request to the IMDB API and displays certain attributes in text fields
+    */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         try{
             
@@ -460,6 +491,7 @@ public class RegGUI extends javax.swing.JFrame {
             txfGenre.setText(arrays.get(1)[0]);
             txfYear.setText(arrays.get(1)[9].substring(arrays.get(1)[9].length() - 4));
             
+            // Selects the type of the item
             switch (arrays.get(1)[5]) {
                 case "movie":
                     {
@@ -481,6 +513,9 @@ public class RegGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    /*
+        Deletes an item from the selected file
+    */
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String itemName = String.valueOf(cobUpdate.getSelectedItem());
         try {
@@ -489,6 +524,9 @@ public class RegGUI extends javax.swing.JFrame {
         read();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    /*
+        Adds an item to the selected CSV file
+    */
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         String format = lib.getFormat(filename);
         AbstractItem item = null;
@@ -498,22 +536,22 @@ public class RegGUI extends javax.swing.JFrame {
         
         if(chbSaveDamaged.isSelected() == true){
             damaged = "1";
-        }
-        else{
+        } else{
             damaged = "0";
         }
         
         if(chbSaveOnLoan.isSelected() == true){
             onLoan = "1";
-        }
-        else{
+        } else{
             onLoan = "0";
         }
         
-        if("csv".equals(format) || "xml".equals(format)){
+        // If the file is a CSv file, check if it exists. If it doesn't, create a new file
+        if("csv".equals(format)){
             lib.checkFileExistence(filename);
         }
         
+        // Create a new item depending on the selected type
         if(rbtnMovie.isSelected()){
             item = new Movie(txfName.getText(), txfGenre.getText(), txfYear.getText(), damaged, onLoan, null);
         } else if(rbtnMusic.isSelected()){
@@ -522,36 +560,33 @@ public class RegGUI extends javax.swing.JFrame {
             item = new Game(txfName.getText(), txfGenre.getText(), txfYear.getText(), damaged, onLoan, null);
         }
         
+        // Save the file
         if("csv".equals(format)){
-            if(lib.write(format, item)){
+            if(lib.writeToCSV(format, item)){
                 txfName.setText("");
                 txfGenre.setText("");
                 txfYear.setText("");
                 txfSearch.setText("");
                 chbSaveDamaged.setSelected(false);
                 chbSaveOnLoan.setSelected(false);
+                read();
             }
-        } else if("xml".equals(format)){
-            if(lib.write(format, item)){
-                txfName.setText("");
-                txfGenre.setText("");
-                txfYear.setText("");
-                txfSearch.setText("");
-                chbSaveDamaged.setSelected(false);
-                chbSaveOnLoan.setSelected(false);
-            }
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "You have to select an xml or a csv file");
+        } else{
+            JOptionPane.showMessageDialog(null, "You have to select a CSV file");
         }
         btnGroup.clearSelection();
-        read();
     }//GEN-LAST:event_btnAddActionPerformed
 
+    /*
+        Whenever a new sorting option is selected, update the textarea
+    */
     private void cobSortItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cobSortItemStateChanged
         read();
     }//GEN-LAST:event_cobSortItemStateChanged
 
+    /*
+        Updates the Damaged / On Loan status of the item
+    */
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         String itemName = String.valueOf(cobUpdate.getSelectedItem());
 
@@ -560,15 +595,13 @@ public class RegGUI extends javax.swing.JFrame {
 
         if(chbUpdateDamaged.isSelected() == true){
             damaged = "1";
-        }
-        else{
+        } else{
             damaged = "0";
         }
 
         if(chbUpdateOnLoan.isSelected() == true){
             onLoan = "1";
-        }
-        else{
+        } else{
             onLoan = "0";
         }
 
@@ -581,6 +614,10 @@ public class RegGUI extends javax.swing.JFrame {
         read();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    /*
+        Check or uncheck the checkboxes depending on what item is selected in
+        the JComboBox
+    */
     private void cobUpdateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cobUpdateItemStateChanged
         String format = lib.getFormat(filename);
         String sorting = String.valueOf(cobSort.getSelectedItem());
@@ -606,16 +643,53 @@ public class RegGUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_cobUpdateItemStateChanged
+
+    /*
+        Saves the selected CSV file as an XML formatted file
+    */
+    private void menuExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExportActionPerformed
+        ArrayList<AbstractItem> items = lib.read("Name", "csv");
+        String file = lib.chooseFile();
+        
+        lib.export(file, items);
+    }//GEN-LAST:event_menuExportActionPerformed
+
+    /*
+        Terminates the program
+    */
+    private void menuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_menuExitActionPerformed
+
+    /*
+        Displays information about the program
+    */
+    private void menuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAboutActionPerformed
+        JOptionPane.showMessageDialog(null, 
+            "This program was created as an assignment " +
+            "for the course programming 2.\nIt consists of a library capable of " +
+            "reading and writing to/from CSV and XML files.\n\n" +
+            "\u00a9 Emil Sundqvist 2015");
+    }//GEN-LAST:event_menuAboutActionPerformed
     
+    /*
+        Updates the textarea by reading from the selected CSV file
+    */
     private void read(){
         String format = lib.getFormat(filename);
         String sorting = String.valueOf(cobSort.getSelectedItem());
-        cobUpdate.disable();
+        
+        chbUpdateDamaged.setEnabled(false);
+        chbUpdateOnLoan.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
+        cobUpdate.setEnabled(false);
         cobUpdate.removeAllItems();
         
         if("csv".equals(format)){
             txaPrint1.setText("");
-
+            
+            // Reads from the selected file and returns the items
             info = lib.read(sorting, format);
             String[] headlines = null;
 
@@ -624,47 +698,52 @@ public class RegGUI extends javax.swing.JFrame {
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Something went wrong"); 
             }
+            
+            if(info != null){
+                for(AbstractItem abItem : info){
 
-            for(AbstractItem abItem : info){
+                    int damaged = 0;
+                    int onLoan = 0;
 
-                int damaged = 0;
-                int onLoan = 0;
-                
-                cobUpdate.addItem(abItem.getName());
+                    cobUpdate.addItem(abItem.getName());
 
-                txaPrint1.append(
-                        headlines[0] + ": " + abItem.getName() + "\n" + 
-                        headlines[1] + ": " + abItem.getGenre() + "\n" + 
-                        headlines[2] + ": " + abItem.getYear() + "\n" +
-                        headlines[3] + ": " + abItem.getType() + "\n" +
-                        "Additional information: " + abItem.getStatusString() + "\n\n");
+                    // Prints the data to the textarea
+                    txaPrint1.append(
+                            headlines[0] + ": " + abItem.getName() + "\n" + 
+                            headlines[1] + ": " + abItem.getGenre() + "\n" + 
+                            headlines[2] + ": " + abItem.getYear() + "\n" +
+                            headlines[3] + ": " + abItem.getType() + "\n" +
+                            "Additional information: " + abItem.getStatusString() + "\n\n");
+
+                    chbUpdateDamaged.setEnabled(true);
+                    chbUpdateOnLoan.setEnabled(true);
+                    btnUpdate.setEnabled(true);
+                    btnDelete.setEnabled(true);
+                    cobUpdate.setEnabled(true);
+
+                }
             }
-
-            cobUpdate.enable();
+            
         } else if("xml".equals(format)){
             txaPrint1.setText("");
-
-            ArrayList<AbstractItem> items = lib.read(null, format);
-
-            for(AbstractItem abItem : items){
-                txaPrint1.append(
-                    "Name: " + abItem.getName() + "\n" + 
-                    "Genre: " + abItem.getGenre() + "\n" + 
-                    "Year: " + abItem.getYear() + "\n" +
-                    "Type: " + abItem.getType() + "\n\n");
+            
+            // Reads from the selected file and returns the items
+            info = lib.read(null, format);
+            
+            if(info != null){
+                for(AbstractItem abItem : info){
+                    txaPrint1.append(
+                        "Name: " + abItem.getName() + "\n" + 
+                        "Genre: " + abItem.getGenre() + "\n" + 
+                        "Year: " + abItem.getYear() + "\n" +
+                        "Type: " + abItem.getType() + "\n" +
+                        "Additional information: " + abItem.getStatusString() + "\n\n");
+                }
             }
         }
     }
     
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -719,7 +798,6 @@ public class RegGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -730,6 +808,9 @@ public class RegGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblGenre;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblYear;
+    private javax.swing.JMenuItem menuAbout;
+    private javax.swing.JMenuItem menuExit;
+    private javax.swing.JMenuItem menuExport;
     private javax.swing.JPanel pnlTab1;
     private javax.swing.JPanel pnlTab2;
     private javax.swing.JRadioButton rbtnGame;
